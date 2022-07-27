@@ -8,8 +8,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.reinaldo.os.domain.Pessoa;
 import com.reinaldo.os.domain.Tecnico;
 import com.reinaldo.os.dtos.TecnicoDTO;
+import com.reinaldo.os.repositories.PessoaRepository;
 import com.reinaldo.os.repositories.TecnicoRepository;
 import com.reinaldo.os.services.exceptions.DataIntegrityViolationException;
 import com.reinaldo.os.services.exceptions.ObjectNotFoundException;
@@ -19,6 +21,9 @@ public class TecnicoService {
 
 	@Autowired
 	private TecnicoRepository repository;
+	
+	@Autowired
+	private PessoaRepository pessoaRepository;
 
 	public Tecnico findById(Integer id) {
 		Optional<Tecnico> obj = repository.findById(id);
@@ -62,8 +67,8 @@ public class TecnicoService {
 		repository.deleteById(id);
 	}
 
-	private Tecnico findByCPF(TecnicoDTO objDTO) {
-		Tecnico obj = repository.findByCPF(objDTO.getCpf());
+	private Pessoa findByCPF(TecnicoDTO objDTO) {
+		Pessoa obj = pessoaRepository.findByCPF(objDTO.getCpf());
 		if (obj != null) {
 			return obj;
 		}
