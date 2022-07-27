@@ -17,6 +17,5 @@ public class TestConfig {
 	@Bean
 	public void instaciaDB() {
 		this.dbService.instanciaDB();
-		
 	}
 }
