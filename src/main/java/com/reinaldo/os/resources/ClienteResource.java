@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,13 +37,13 @@ public class ClienteResource {
 	
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> findAll(){
-		List<ClienteDTO> obj = service.findAll().stream().
-				map(objDTO -> new ClienteDTO(objDTO)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(obj);
+		List<ClienteDTO> objDTO = service.findAll().stream().map(c -> new ClienteDTO(c)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(objDTO);
 	}
 	
+		
 	@PostMapping
-	public ResponseEntity<ClienteDTO> created(@RequestBody ClienteDTO objDTO){
+	public ResponseEntity<ClienteDTO> created(@Valid @RequestBody ClienteDTO objDTO){
 		Cliente newObj = service.create(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(newObj.getId()).toUri();

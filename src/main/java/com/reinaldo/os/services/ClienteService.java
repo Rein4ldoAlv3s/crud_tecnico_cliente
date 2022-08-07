@@ -27,7 +27,7 @@ public class ClienteService {
 				"Objeto não encontrado! " + id + ", Tipo: " + Tecnico.class.getName()));
 	}
 	
-	public List<Cliente> findAll(){
+	public List<Cliente> findAll() {
 		return repository.findAll();
 	}
 	
@@ -46,5 +46,11 @@ public class ClienteService {
 		}
 		return null;
 	}
+
+
+
+	
+
+	
 	
 }

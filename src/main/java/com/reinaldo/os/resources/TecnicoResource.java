@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.reinaldo.os.domain.Pessoa;
 import com.reinaldo.os.domain.Tecnico;
 import com.reinaldo.os.dtos.TecnicoDTO;
+import com.reinaldo.os.repositories.TecnicoRepository;
 import com.reinaldo.os.services.TecnicoService;
 
 @RestController
@@ -29,6 +32,8 @@ public class TecnicoResource {
 
 	@Autowired
 	private TecnicoService service;
+	@Autowired
+	private TecnicoRepository repository; 
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id){
@@ -76,4 +81,13 @@ public class TecnicoResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+//	@GetMapping(value = "/teste/{id}")
+//	public ResponseEntity<String> findTeste(@PathVariable Integer id){
+//		return ResponseEntity.ok().body(repository.findCPFF(id));
+//	}
+	
+	
+	
+	
 }
