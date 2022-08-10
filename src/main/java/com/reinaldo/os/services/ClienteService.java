@@ -3,6 +3,8 @@ package com.reinaldo.os.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,25 @@ public class ClienteService {
 		return repository.save(newObj);
 	}
 	
+	
+
+	public Cliente update(Integer id, @Valid ClienteDTO objDto) {
+		Cliente oldObj = findById(id);
+		
+		if(findByCPF(objDto) != null && findByCPF(objDto).getId() != id ) {
+			throw new DataIntegrityViolationException("CPF já está cadastrado no sistema. Informe outro!");
+		}
+		
+		oldObj.setCpf(objDto.getCpf());
+		oldObj.setNome(objDto.getNome());
+		oldObj.setTelefone(objDto.getTelefone());
+		oldObj.setList(null);
+		
+		return oldObj;
+	}
+
+
+
 	private Pessoa findByCPF(ClienteDTO objDTO) {
 		Pessoa obj = repository.findByCPF(objDTO.getCpf());
 		if (obj != null) {
@@ -46,10 +67,6 @@ public class ClienteService {
 		}
 		return null;
 	}
-
-
-
-	
 
 	
 	
