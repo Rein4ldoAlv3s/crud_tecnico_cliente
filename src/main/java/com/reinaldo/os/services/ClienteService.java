@@ -58,7 +58,15 @@ public class ClienteService {
 		return oldObj;
 	}
 
-
+	public void delete(Integer id) {
+		Cliente obj =  findById(id);
+		
+		if(obj.getList().size() > 0) {
+			throw new DataIntegrityViolationException("Cliente possui Ordens de Serviço. Não pode ser deletado!");
+		}
+		
+		repository.deleteById(id);
+	}
 
 	private Pessoa findByCPF(ClienteDTO objDTO) {
 		Pessoa obj = repository.findByCPF(objDTO.getCpf());
